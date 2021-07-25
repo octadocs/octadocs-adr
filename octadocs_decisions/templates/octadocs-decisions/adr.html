@@ -1,0 +1,74 @@
+{% extends "main.html" %}
+
+
+{% block site_nav %}
+  {# I had to copy-paste from the base template. #}
+
+  <!-- Main navigation -->
+  {% if nav %}
+    {% if page and page.meta and page.meta.hide %}
+      {% set hidden = "hidden" if "navigation" in page.meta.hide %}
+    {% endif %}
+    <div
+            class="md-sidebar md-sidebar--primary"
+            data-md-component="sidebar"
+            data-md-type="navigation"
+            {{ hidden }}
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          {% include "partials/nav.html" %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Table of contents -->
+  {% if page.toc and not "toc.integrate" in features %}
+    {% if page and page.meta and page.meta.hide %}
+      {% set hidden = "hidden" if "toc" in page.meta.hide %}
+    {% endif %}
+    <div
+            class="md-sidebar md-sidebar--secondary"
+            data-md-component="sidebar"
+            data-md-type="toc"
+            {{ hidden }}
+    >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          {% include "partials/toc.html" %}
+
+                    <nav class="md-nav md-nav--secondary" style="margin-top: 2em">
+            <label class="md-nav__title" for="__toc">
+              <span class="md-nav__icon md-icon"></span>
+              ADR
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              <li class="md-nav__item"><a class="md-nav__link" href="#"><strong>Status:</strong> ✔️Accepted</a></li>
+              <li class="md-nav__item"><a class="md-nav__link" href="#"><strong>Author:</strong> Anatoly Scherbakov</a></li>
+              <li class="md-nav__item"><a class="md-nav__link" href="#"><strong>Created:</strong> 2021-07-24</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+
+{# I had to copy-paste the content of `content` block to remove the <h1> hack #}
+{% block content %}
+    <h1><strong><code>ADR{{ '%04d' % page.meta.number }}</code></strong> {{ page.meta.title }}</h1>
+
+    <!-- Markdown content -->
+    {{ page.content }}
+
+    <!-- Last update of source file -->
+    {% if page and page.meta %}
+      {% if page.meta.git_revision_date_localized or
+            page.meta.revision_date
+      %}
+        {% include "partials/source-file.html" %}
+      {% endif %}
+    {% endif %}
+{% endblock %}

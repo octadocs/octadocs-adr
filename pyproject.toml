@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "octadocs-decisions"
+version = "0.1.0"
+description = ""
+authors = ["Anatoly Scherbakov <altaisoft@gmail.com>"]
+
+[tool.poetry.plugins."mkdocs.plugins"]
+octadocs_decisions = "octadocs_decisions.plugin:DecisionsPlugin"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+wemake-python-styleguide = "^0.15.3"
+flakehell = "^0.9.0"
+flake8 = "3.9.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.flakehell]
+# Will replace by my own ignorelist later
+base = "https://raw.githubusercontent.com/Recall-Masters/standards/main/pyproject.toml"
+
+
+[tool.flakehell.exceptions."**/*.py"]
+flake8-darglint = [
+  "-*"
+]
