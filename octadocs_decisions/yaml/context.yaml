@@ -1,0 +1,25 @@
+xsd: https://www.w3.org/2001/XMLSchema#
+decisions: https://octadocs.io/blueprints/decisions/
+octa: https://ns.octadocs.io/
+
+title: octa:title
+
+number:
+  $id: decisions:number
+  $type: xsd:integer
+
+date:
+  $id: decisions:date
+  $type: xsd:date
+
+status:
+  $id: decisions:status
+  $type: $id
+
+accepted: decisions:accepted
+rejected: decisions:rejected
+created: decisions:created
+
+author:
+  $id: decisions:status
+  $type: $id
