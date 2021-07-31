@@ -1,7 +1,10 @@
+import json
 from pathlib import Path
 
 from mkdocs.plugins import BasePlugin
 from octadocs.octiron.context_loaders import context_from_yaml
+from octadocs.plugin import cached_octiron
+from rdflib import URIRef
 
 
 class DecisionsPlugin(BasePlugin):
@@ -14,7 +17,7 @@ class DecisionsPlugin(BasePlugin):
 
     def load_context(self):
         """Load YAML-LD context."""
-        return context_from_yaml(Path(__file__).parent / 'yaml/context.yaml')
+        return context_from_yaml(Path(__file__).parent / 'yaml/ctx.yaml')
 
     def on_config(self, config, **kwargs):
         """Adjust configuration."""
@@ -22,9 +25,24 @@ class DecisionsPlugin(BasePlugin):
         config['theme'].dirs.append(str(self.templates_path))
 
         named_context = self.load_context()
+
         try:
             contexts = config['extra']['named_contexts']
         except KeyError:
             contexts = config['extra']['named_contexts'] = {}
 
-        contexts['octadocs_decisions'] = named_context
+        contexts['decisions'] = named_context
+
+        docs_dir = Path(config['docs_dir'])
+
+        self.octiron = cached_octiron(
+            docs_dir=docs_dir,
+        )
+
+        # Load the triples
+        self.octiron.update_from_file(
+            path=Path(__file__).parent / 'yaml/octadocs-decisions.yaml',
+            local_iri=URIRef('https://octadocs.io/blueprints/decisions/'),
+            global_url='/octadocs-decisions.yaml',
+            named_contexts=config['extra']['named_contexts'],
+        )

@@ -1,0 +1,31 @@
+# Do not rename this to context.yaml. Breaks loading of octadocs-decisions.yaml
+$context:
+  xsd: https://www.w3.org/2001/XMLSchema#
+  decisions: https://octadocs.io/blueprints/decisions/
+  octa: https://ns.octadocs.io/
+
+  title:
+    $id: octa:title
+
+  number:
+    $id: decisions:number
+    $type: xsd:integer
+
+  date:
+    $id: decisions:date
+    $type: xsd:date
+
+  status:
+    $id: decisions:status
+    $type: $id
+
+  accepted:
+    $id: decisions:accepted
+  rejected:
+    $id: decisions:rejected
+  created:
+    $id: decisions:created
+
+  author:
+    $id: decisions:author
+    $type: $id

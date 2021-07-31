@@ -1,0 +1,27 @@
+$context:
+  decisions: https://octadocs.io/blueprints/decisions/
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  octa: https://ns.octadocs.io/
+
+$included:
+  - $id: octa:adr
+    $type: octa:App
+    label: Architecture Decision Record.
+    octa:template: "octadocs-decisions/adr.html"
+
+  - $id: octa:adr-list
+    $type: octa:App
+    label: List of Architecture Decision Records.
+    octa:template: "octadocs-decisions/decision-list.html"
+
+  - $id: decisions:DecisionPage
+    owl:equivalentClass:
+      - $type: owl:Restriction
+        owl:onProperty:
+          $id: iolanta:app
+        owl:hasValue:
+          $id: octa:adr
+
+  - $id: decisions:number
+    rdfs:domain:
+      $id: decisions:DecisionPage
