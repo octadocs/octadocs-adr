@@ -157,6 +157,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "dominate"
+version = "2.6.0"
+description = "Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
 name = "entrypoints"
 version = "0.3"
 description = "Discover and load entry points from installed packages."
@@ -1096,7 +1104,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8,<3.10"
-content-hash = "5478733fdfacb95cf28323919e3efaf57db7bcc71899205722490533bc8796b4"
+content-hash = "44a6edbb0db3d4f6e5b995a42056e7d0a824eb61682f34b9e39bcfc895a8f1b1"
 
 [metadata.files]
 astor = [
@@ -1166,6 +1174,10 @@ documented = [
 docutils = [
     {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
     {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
+]
+dominate = [
+    {file = "dominate-2.6.0-py2.py3-none-any.whl", hash = "sha256:84b5f71ed30021193cb0faa45d7776e1083f392cfe67a49f44e98cb2ed76c036"},
+    {file = "dominate-2.6.0.tar.gz", hash = "sha256:76ec2cde23700a6fc4fee098168b9dee43b99c2f1dd0ca6a711f683e8eb7e1e4"},
 ]
 entrypoints = [
     {file = "entrypoints-0.3-py2.py3-none-any.whl", hash = "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19"},

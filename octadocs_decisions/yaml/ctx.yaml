@@ -21,8 +21,10 @@ $context:
 
   accepted:
     $id: decisions:accepted
+
   rejected:
     $id: decisions:rejected
+
   created:
     $id: decisions:created
 

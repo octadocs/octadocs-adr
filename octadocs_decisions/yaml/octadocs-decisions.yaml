@@ -1,18 +1,24 @@
 $context:
+  xsd: https://www.w3.org/2001/XMLSchema#
   decisions: https://octadocs.io/blueprints/decisions/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   octa: https://ns.octadocs.io/
+  owl: http://www.w3.org/2002/07/owl#
+
+  # Shorthands
+  label: rdfs:label
+  symbol: octa:symbol
 
 $included:
-  - $id: octa:adr
+  - $id: decisions:adr
     $type: octa:App
     label: Architecture Decision Record.
     octa:template: "octadocs-decisions/adr.html"
 
-  - $id: octa:adr-list
+  - $id: decisions:adr-list
     $type: octa:App
     label: List of Architecture Decision Records.
-    octa:template: "octadocs-decisions/decision-list.html"
+    octa:template: "octadocs-decisions/adr-list.html"
 
   - $id: decisions:DecisionPage
     owl:equivalentClass:
@@ -20,8 +26,21 @@ $included:
         owl:onProperty:
           $id: iolanta:app
         owl:hasValue:
-          $id: octa:adr
+          $id: decisions:adr
 
   - $id: decisions:number
+    rdfs:subClassOf: octa:position
     rdfs:domain:
       $id: decisions:DecisionPage
+
+  - $id: decisions:accepted
+    label: Accepted
+    symbol: ✔️
+
+  - $id: decisions:rejected
+    label: Rejected
+    symbol: ❌
+
+  - $id: decisions:created
+    label: Created
+    symbol: 💡

@@ -1,10 +1,15 @@
-import json
 from pathlib import Path
+from typing import Dict, Any
 
 from mkdocs.plugins import BasePlugin
+from mkdocs.structure.pages import Page
 from octadocs.octiron.context_loaders import context_from_yaml
 from octadocs.plugin import cached_octiron
-from rdflib import URIRef
+from rdflib import Namespace, URIRef
+
+from octadocs_decisions.macros import DecisionContext
+
+DECISIONS = Namespace('https://octadocs.io/blueprints/decisions/')
 
 
 class DecisionsPlugin(BasePlugin):
@@ -39,6 +44,9 @@ class DecisionsPlugin(BasePlugin):
             docs_dir=docs_dir,
         )
 
+        # Prefix
+        self.octiron.graph.bind('decisions', DECISIONS)
+
         # Load the triples
         self.octiron.update_from_file(
             path=Path(__file__).parent / 'yaml/octadocs-decisions.yaml',
@@ -46,3 +54,19 @@ class DecisionsPlugin(BasePlugin):
             global_url='/octadocs-decisions.yaml',
             named_contexts=config['extra']['named_contexts'],
         )
+
+    def on_page_context(
+        self,
+        context: Dict[str, Any],
+        page: Page,
+        **kwargs,
+    ):
+        """Make custom functions available to the template."""
+        context.update({
+            'decision': DecisionContext(
+                page=page,
+                octiron=self.octiron,
+            ),
+        })
+
+        return context
