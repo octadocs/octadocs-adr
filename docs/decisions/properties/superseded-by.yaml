@@ -1,0 +1,4 @@
+$id: superseded-by
+$type: rdf:Property
+rdfs:domain: DecisionPage
+rdfs:range: DecisionPage
