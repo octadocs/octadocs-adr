@@ -9,7 +9,7 @@ from rdflib import Namespace, URIRef
 
 from octadocs_adr.macros import DecisionContext
 
-DECISIONS = Namespace('https://octadocs.io/blueprints/decisions/')
+ADR = Namespace('https://adr.octadocs.io/')
 
 
 class ADRPlugin(BasePlugin):
@@ -45,7 +45,7 @@ class ADRPlugin(BasePlugin):
         )
 
         # Prefix
-        self.octiron.graph.bind('decisions', DECISIONS)
+        self.octiron.graph.bind('adr', ADR)
 
         # Load the triples
         self.octiron.update_from_file(
