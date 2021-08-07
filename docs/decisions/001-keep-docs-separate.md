@@ -4,7 +4,6 @@ number: 1
 author: anatoly
 date: 2021-08-01
 status: decisions:accepted
-superseded-by: 3
 ---
 
 ## Context

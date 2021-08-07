@@ -1,10 +1,80 @@
+import itertools
+import json
+import operator
 from dataclasses import dataclass
 from functools import cached_property
+from typing import Dict, List, Optional
 
 from dominate import tags
 from mkdocs.structure.pages import Page
+from more_itertools import first
 from octadocs.octiron import Octiron
 from rdflib import URIRef
+from rdflib.term import Node, Literal
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
+    """Find apps connected to properties."""
+    pairs = octiron.query(
+        '''
+        SELECT ?property ?app WHERE {
+            ?property iolanta:app ?app .
+            ?app iolanta:supports <https://adr.octadocs.io/sidebar> .
+        }
+        '''
+    )
+    return {
+        row['property']: row['app']
+        for row in pairs
+    }
+
+
+def render(iri: Node) -> str:
+    """
+    Given an IRI, render it on a MkDocs page.
+
+    For that, find an appropriate facet and execute it.
+    """
+    return str(iri)
+
+
+def default_property_facet(
+    octiron: Octiron,
+    property_iri: URIRef,
+    property_values: List[Node],
+) -> Optional[str]:
+    """Default facet to render a property with its values."""
+    label = first(
+        map(
+            operator.itemgetter('label'),
+            octiron.query(
+                '''
+                SELECT ?label WHERE {
+                    ?property rdfs:label ?label .
+                } ORDER BY ?label LIMIT 1
+                ''',
+                property=property_iri,
+            ),
+        ),
+        None,
+    )
+
+    if label is None:
+        return
+
+    if len(property_values) > 1:
+        raise Exception('Too many values')
+
+    property_value = property_values[0]
+
+    if isinstance(property_value, Literal):
+        return f'<strong>{label}</strong>: {property_value}'
+
+    rendered_value = render(property_value)
+    return f'<strong>{label}</strong> {rendered_value}'
 
 
 @dataclass
@@ -88,3 +158,54 @@ class DecisionContext:
             return ''
 
         return date_choice['date'].value
+
+    def describe_this_page(self) -> Dict[URIRef, List[Node]]:
+        """List all properties of current page that can be rendered."""
+        about_this_page = self.octiron.query(
+            '''
+            SELECT ?property ?value WHERE {
+                ?page ?property ?value .
+                
+                ?property a decisions:PageProperty .
+
+                OPTIONAL {
+                    ?property octa:position ?explicit_position .
+                }
+
+                BIND(COALESCE(?explicit_position, 0) as ?position)
+            } ORDER BY ?position ?property
+            ''',
+            page=self.page.iri,
+        )
+
+        groups = itertools.groupby(
+            about_this_page,
+            key=operator.itemgetter('property'),
+        )
+
+        return dict({
+            grouper: list(map(
+                operator.itemgetter('value'),
+                group_items,
+            ))
+            for grouper, group_items in groups
+        })
+
+    def page_properties(self):
+        """Render page properties block."""
+        properties_and_apps = app_by_property(self.octiron)
+        properties_and_values = self.describe_this_page()
+
+        for property_iri, property_values in properties_and_values.items():
+            if attached_app_iri := properties_and_apps.get(property_iri):
+                raise ValueError(f'Attached app: {attached_app_iri}')
+
+            yield default_property_facet(
+                octiron=self.octiron,
+                property_iri=property_iri,
+                property_values=property_values,
+            )
+
+    @property
+    def render_page_properties(self):
+        return '\n'.join(filter(None, self.page_properties()))

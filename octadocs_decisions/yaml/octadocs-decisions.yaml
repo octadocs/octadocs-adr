@@ -4,10 +4,13 @@ $context:
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   octa: https://ns.octadocs.io/
   owl: http://www.w3.org/2002/07/owl#
+  iolanta: https://iolanta.tech/
 
   # Shorthands
   label: rdfs:label
   symbol: octa:symbol
+  app: iolanta:app
+  position: octa:position
 
 $included:
   - $id: decisions:adr
@@ -44,3 +47,21 @@ $included:
   - $id: decisions:created
     label: Created
     symbol: 💡
+
+  - $id: decisions:PageProperty
+    label: Class of properties that will be displayed in an ADR page sidebar.
+
+  - $id: decisions:author
+    $type: decisions:PageProperty
+    label: Author
+    position: -40
+
+  - $id: decisions:date
+    $type: decisions:PageProperty
+    label: Date
+    position: -30
+
+  - $id: decisions:status
+    $type: decisions:PageProperty
+    label: Status
+    position: -50
