@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "octadocs-decisions"
+name = "octadocs-adr"
 version = "0.1.0"
-description = ""
-authors = ["Anatoly Scherbakov <altaisoft@gmail.com>"]
+description = "A blueprint for Architecture Decision Record in Octadocs - the smart documentation environment."
+authors = ["Anatoly Scherbakov <talk@yeti.sh>"]
 
 [tool.poetry.plugins."mkdocs.plugins"]
-octadocs_decisions = "octadocs_decisions.plugin:DecisionsPlugin"
+octadocs_adr = "octadocs_adr.plugin:ADRPlugin"
 
 [tool.poetry.dependencies]
 python = "^3.8,<3.10"

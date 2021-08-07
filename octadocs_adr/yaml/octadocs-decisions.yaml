@@ -77,7 +77,7 @@ $included:
       owl:onProperty:
         $id: iolanta:app
       owl:hasValue:
-        $id: python://octadocs_decisions.facets.status
+        $id: python://octadocs_adr.facets.status
 
   - $id: schema:name
     rdfs:subPropertyOf:

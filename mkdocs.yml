@@ -1,6 +1,6 @@
-site_name: octadocs-decisions
-repo_url: https://github.com/octadocs/octadocs-decisions
-repo_name: octadocs-decisions
+site_name: octadocs-adr
+repo_url: https://github.com/octadocs/octadocs-adr
+repo_name: octadocs-adr
 copyright: Copyright &copy; 2021 OctaDocs
 
 markdown_extensions:
@@ -16,7 +16,7 @@ markdown_extensions:
 plugins:
   - search
   - octadocs
-  - octadocs_decisions
+  - octadocs_adr
   - macros
 
 theme:

@@ -7,12 +7,12 @@ from octadocs.octiron.context_loaders import context_from_yaml
 from octadocs.plugin import cached_octiron
 from rdflib import Namespace, URIRef
 
-from octadocs_decisions.macros import DecisionContext
+from octadocs_adr.macros import DecisionContext
 
 DECISIONS = Namespace('https://octadocs.io/blueprints/decisions/')
 
 
-class DecisionsPlugin(BasePlugin):
+class ADRPlugin(BasePlugin):
     """Decisions plugin automatically presents MkDocs pages as ADR documents."""
 
     @property

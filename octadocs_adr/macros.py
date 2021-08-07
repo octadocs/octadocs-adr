@@ -17,7 +17,7 @@ import logging
 
 from urlpath import URL
 
-from octadocs_decisions.facets.default import default
+from octadocs_adr.facets.default import default
 
 logger = logging.getLogger(__name__)
 
