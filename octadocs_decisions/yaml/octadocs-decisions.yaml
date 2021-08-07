@@ -9,7 +9,7 @@ $context:
   # Shorthands
   label: rdfs:label
   symbol: octa:symbol
-  app: iolanta:app
+  facet: iolanta:app
   position: octa:position
 
 $included:
@@ -37,14 +37,17 @@ $included:
       $id: decisions:DecisionPage
 
   - $id: decisions:accepted
+    $type: decisions:Status
     label: Accepted
     symbol: ✔️
 
   - $id: decisions:rejected
+    $type: decisions:Status
     label: Rejected
     symbol: ❌
 
   - $id: decisions:created
+    $type: decisions:Status
     label: Created
     symbol: 💡
 
@@ -65,3 +68,15 @@ $included:
     $type: decisions:PageProperty
     label: Status
     position: -50
+
+  - $id: decisions:Status
+    owl:equivalentClass:
+      $type: owl:Restriction
+      owl:onProperty:
+        $id: iolanta:app
+      owl:hasValue:
+        $id: python://octadocs_decisions.facets.status
+
+  - $id: schema:name
+    rdfs:subPropertyOf:
+      $id: rdfs:label

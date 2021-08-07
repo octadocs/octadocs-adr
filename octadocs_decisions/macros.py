@@ -1,10 +1,12 @@
 import itertools
 import json
 import operator
+import pydoc
 from dataclasses import dataclass
 from functools import cached_property
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Callable
 
+from documented import DocumentedError
 from dominate import tags
 from mkdocs.structure.pages import Page
 from more_itertools import first
@@ -13,7 +15,27 @@ from rdflib import URIRef
 from rdflib.term import Node, Literal
 import logging
 
+from urlpath import URL
+
+from octadocs_decisions.facets.default import default
+
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class FacetNotCallable(DocumentedError):
+    """
+    Python facet not callable.
+
+      - Import path: {self.path}
+      - Object imported: {self.facet}
+
+    The imported Python object is not a callable and thus cannot be used as a
+    facet.
+    """
+
+    path: str
+    facet: object
 
 
 def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
@@ -32,13 +54,64 @@ def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
     }
 
 
-def render(iri: Node) -> str:
+def find_facet_for(octiron: Octiron, node: Node) -> Optional[URIRef]:
+    """
+    Find the facet for the node in question.
+
+    :param octiron: Octiron instance representing the graph.
+    :param node: most commonly a URIRef.
+    :return: IRI of the facet, if found.
+    """
+    choices = octiron.query(
+        '''
+        SELECT ?facet WHERE {
+            ?node iolanta:app ?facet .
+        }
+        ''',
+        node=node,
+    )
+
+    facets = map(operator.itemgetter('facet'), choices)
+    return first(facets, None)
+
+
+def resolve_facet(iri: URIRef) -> Callable[[Octiron, Node], str]:
+    url = URL(str(iri))
+
+    if url.scheme != 'python':
+        raise Exception(
+            'Octadocs only supports facets which are importable Python '
+            'callables. The URLs of such facets must start with `python://`, '
+            'which {url} does not comply to.'.format(
+                url=url,
+            )
+        )
+
+    facet = pydoc.locate(url.hostname)
+
+    if not callable(facet):
+        raise FacetNotCallable(
+            path=url,
+            facet=facet,
+        )
+
+    return facet
+
+
+def render(octiron: Octiron, node: Node) -> str:
     """
     Given an IRI, render it on a MkDocs page.
 
     For that, find an appropriate facet and execute it.
     """
-    return str(iri)
+    facet_iri = find_facet_for(octiron=octiron, node=node)
+
+    if facet_iri is None:
+        # Fall back to the default facet.
+        return default(octiron=octiron, node=node)
+
+    facet = resolve_facet(facet_iri)
+    return facet(octiron, node)
 
 
 def default_property_facet(
@@ -73,8 +146,8 @@ def default_property_facet(
     if isinstance(property_value, Literal):
         return f'<strong>{label}</strong>: {property_value}'
 
-    rendered_value = render(property_value)
-    return f'<strong>{label}</strong> {rendered_value}'
+    rendered_value = render(octiron=octiron, node=property_value)
+    return f'<strong>{label}</strong>: {rendered_value}'
 
 
 @dataclass
@@ -200,11 +273,13 @@ class DecisionContext:
             if attached_app_iri := properties_and_apps.get(property_iri):
                 raise ValueError(f'Attached app: {attached_app_iri}')
 
-            yield default_property_facet(
+            rendered_facet = default_property_facet(
                 octiron=self.octiron,
                 property_iri=property_iri,
                 property_values=property_values,
             )
+
+            yield f'<li class="md-nav__item md-nav__link">{rendered_facet}</li>'
 
     @property
     def render_page_properties(self):

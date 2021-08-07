@@ -1,3 +1,4 @@
 - $id: anatoly
+  $type: schema:Person
   schema:name: Anatoly Scherbakov
   schema:url: https://yeti.sh
