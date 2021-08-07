@@ -1,7 +1,7 @@
 # Do not rename this to context.yaml. Breaks loading of octadocs-decisions.yaml
 $context:
   xsd: https://www.w3.org/2001/XMLSchema#
-  decisions: https://octadocs.io/blueprints/decisions/
+  adr: https://adr.octadocs.io/
   octa: https://ns.octadocs.io/
 
   symbol: octa:symbol
@@ -10,26 +10,26 @@ $context:
     $id: octa:title
 
   number:
-    $id: decisions:number
+    $id: adr:number
     $type: xsd:integer
 
   date:
-    $id: decisions:date
+    $id: adr:date
     $type: xsd:date
 
   status:
-    $id: decisions:status
+    $id: adr:status
     $type: $id
 
   accepted:
-    $id: decisions:accepted
+    $id: adr:accepted
 
   rejected:
-    $id: decisions:rejected
+    $id: adr:rejected
 
   created:
-    $id: decisions:created
+    $id: adr:created
 
   author:
-    $id: decisions:author
+    $id: adr:author
     $type: $id

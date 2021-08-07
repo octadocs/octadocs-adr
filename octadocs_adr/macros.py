@@ -10,6 +10,7 @@ from documented import DocumentedError
 from dominate import tags
 from mkdocs.structure.pages import Page
 from more_itertools import first
+from octadocs.iolanta import resolve_facet
 from octadocs.octiron import Octiron
 from rdflib import URIRef
 from rdflib.term import Node, Literal
@@ -127,7 +128,7 @@ class DecisionContext:
     def status(self) -> str:
         status_choices = self.octiron.query('''
             SELECT ?label ?symbol WHERE {
-                ?page decisions:status [
+                ?page adr:status [
                     rdfs:label ?label ;
                     octa:symbol ?symbol
                 ] .
@@ -151,7 +152,7 @@ class DecisionContext:
     def author(self):
         authors = self.octiron.query('''
             SELECT ?name ?url WHERE {
-                ?page decisions:author [
+                ?page adr:author [
                     schema:name ?name ;
                     schema:url ?url
                 ] .
@@ -184,7 +185,7 @@ class DecisionContext:
     def date(self) -> str:
         date_choice = self.octiron.query('''
             SELECT ?date WHERE {
-                ?page decisions:date ?date .
+                ?page adr:date ?date .
             }
         ''', page=self.iri).first
 
@@ -200,7 +201,7 @@ class DecisionContext:
             SELECT ?property ?value WHERE {
                 ?page ?property ?value .
                 
-                ?property a decisions:PageProperty .
+                ?property a adr:PageProperty .
 
                 OPTIONAL {
                     ?property octa:position ?explicit_position .
