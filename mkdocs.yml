@@ -17,6 +17,7 @@ plugins:
   - search
   - octadocs
   - octadocs_decisions
+  - macros
 
 theme:
   name: material

@@ -66,6 +66,8 @@ $included:
 
   - $id: decisions:status
     $type: decisions:PageProperty
+    rdfs:range:
+      $id: decisions:Status
     label: Status
     position: -50
 

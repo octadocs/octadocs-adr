@@ -4,6 +4,8 @@ $context:
   decisions: https://octadocs.io/blueprints/decisions/
   octa: https://ns.octadocs.io/
 
+  symbol: octa:symbol
+
   title:
     $id: octa:title
 
