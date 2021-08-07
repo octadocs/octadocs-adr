@@ -1,3 +1,4 @@
+from documented import DocumentedError
 from more_itertools import first
 from octadocs.octiron import Octiron
 from rdflib import URIRef
