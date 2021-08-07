@@ -1,6 +1,6 @@
 $context:
   xsd: https://www.w3.org/2001/XMLSchema#
-  decisions: https://adr.octadocs.io/
+  adr: https://adr.octadocs.io/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   octa: https://ns.octadocs.io/
   owl: http://www.w3.org/2002/07/owl#
@@ -13,66 +13,70 @@ $context:
   position: octa:position
 
 $included:
-  - $id: decisions:adr
+  - $id: "adr:"
+    octa:url:
+      $id: "adr:"
+
+  - $id: adr:adr
     $type: octa:App
     label: Architecture Decision Record.
     octa:template: "octadocs-decisions/adr.html"
 
-  - $id: decisions:adr-list
+  - $id: adr:adr-list
     $type: octa:App
     label: List of Architecture Decision Records.
     octa:template: "octadocs-decisions/adr-list.html"
 
-  - $id: decisions:DecisionPage
+  - $id: adr:DecisionPage
     owl:equivalentClass:
       - $type: owl:Restriction
         owl:onProperty:
           $id: iolanta:app
         owl:hasValue:
-          $id: decisions:adr
+          $id: adr:adr
 
-  - $id: decisions:number
+  - $id: adr:number
     rdfs:subPropertyOf:
       $id: octa:position
     rdfs:domain:
-      $id: decisions:DecisionPage
+      $id: adr:DecisionPage
 
   - $id: accepted
-    $type: decisions:Status
+    $type: adr:Status
     label: Accepted
     symbol: ✔️
 
   - $id: rejected
-    $type: decisions:Status
+    $type: adr:Status
     label: Rejected
     symbol: ❌
 
   - $id: created
-    $type: decisions:Status
+    $type: adr:Status
     label: Created
     symbol: 💡
 
-  - $id: decisions:PageProperty
+  - $id: adr:PageProperty
     label: Class of properties that will be displayed in an ADR page sidebar.
 
-  - $id: decisions:author
-    $type: decisions:PageProperty
+  - $id: adr:author
+    $type: adr:PageProperty
     label: Author
     position: -40
 
-  - $id: decisions:date
-    $type: decisions:PageProperty
+  - $id: adr:date
+    $type: adr:PageProperty
     label: Date
     position: -30
 
-  - $id: decisions:status
-    $type: decisions:PageProperty
+  - $id: adr:status
+    $type: adr:PageProperty
     rdfs:range:
-      $id: decisions:Status
+      $id: adr:Status
     label: Status
     position: -50
 
-  - $id: decisions:Status
+  - $id: adr:Status
     iolanta:app:
       $id: python://octadocs_adr.facets.status_class
       iolanta:supports:
