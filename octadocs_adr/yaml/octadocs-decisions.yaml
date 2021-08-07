@@ -1,6 +1,6 @@
 $context:
   xsd: https://www.w3.org/2001/XMLSchema#
-  decisions: https://octadocs.io/blueprints/decisions/
+  decisions: https://adr.octadocs.io/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
   octa: https://ns.octadocs.io/
   owl: http://www.w3.org/2002/07/owl#
@@ -73,6 +73,10 @@ $included:
     position: -50
 
   - $id: decisions:Status
+    iolanta:app:
+      $id: python://octadocs_adr.facets.status_class
+      iolanta:supports:
+        $id: iolanta:html
     owl:equivalentClass:
       $type: owl:Restriction
       owl:onProperty:

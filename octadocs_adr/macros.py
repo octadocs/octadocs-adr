@@ -22,22 +22,6 @@ from octadocs_adr.facets.default import default
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class FacetNotCallable(DocumentedError):
-    """
-    Python facet not callable.
-
-      - Import path: {self.path}
-      - Object imported: {self.facet}
-
-    The imported Python object is not a callable and thus cannot be used as a
-    facet.
-    """
-
-    path: str
-    facet: object
-
-
 def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
     """Find apps connected to properties."""
     pairs = octiron.query(
@@ -73,29 +57,6 @@ def find_facet_for(octiron: Octiron, node: Node) -> Optional[URIRef]:
 
     facets = map(operator.itemgetter('facet'), choices)
     return first(facets, None)
-
-
-def resolve_facet(iri: URIRef) -> Callable[[Octiron, Node], str]:
-    url = URL(str(iri))
-
-    if url.scheme != 'python':
-        raise Exception(
-            'Octadocs only supports facets which are importable Python '
-            'callables. The URLs of such facets must start with `python://`, '
-            'which {url} does not comply to.'.format(
-                url=url,
-            )
-        )
-
-    facet = pydoc.locate(url.hostname)
-
-    if not callable(facet):
-        raise FacetNotCallable(
-            path=url,
-            facet=facet,
-        )
-
-    return facet
 
 
 def render(octiron: Octiron, node: Node) -> str:

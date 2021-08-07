@@ -17,7 +17,9 @@ plugins:
   - search
   - octadocs
   - octadocs_adr
-  - macros
+  - macros:
+      modules:
+        - octadocs.macros
 
 theme:
   name: material
