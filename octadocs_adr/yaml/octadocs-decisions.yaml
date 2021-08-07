@@ -32,7 +32,8 @@ $included:
           $id: decisions:adr
 
   - $id: decisions:number
-    rdfs:subClassOf: octa:position
+    rdfs:subPropertyOf:
+      $id: octa:position
     rdfs:domain:
       $id: decisions:DecisionPage
 
