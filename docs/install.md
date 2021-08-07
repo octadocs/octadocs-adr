@@ -43,27 +43,12 @@ This `context.yaml` file marks the created directory as the location for ADR doc
 
 ## Create your first ADR
 
-Create a new document in `decisions` directory named, say, `001-use-octadocs-decisions.md`:
+{% set sample_adr = "000-use-octadocs-adr.md" %}
+
+Create a new document in `decisions` directory named, say, `{{ sample_adr }}`:
 
 ```markdown
----
-title: Use octadocs-decisions
-number: 1
-date: 2021-08-01
-status: decisions:accepted
----
-
-## Context
-
-I am tired of managing ADR documents manually.
-
-## Decision
-
-Let us use `octadocs-decisions` for that.
-
-## Consequences
-
-I will get rid of manual work and will be 146% happier than before.
+{% include "decisions/" + sample_adr %}
 ```
 
-Open the `Decisions` chapter on your site and enjoy 🙂 
+Open [`ADR000` Use octadocs-adr](/decisions/000-use-octadocs-adr/) and see for yourself 😏 
