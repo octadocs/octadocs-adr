@@ -10,7 +10,7 @@ from documented import DocumentedError
 from dominate import tags
 from mkdocs.structure.pages import Page
 from more_itertools import first
-from octadocs.iolanta import resolve_facet
+from octadocs.iolanta import resolve_facet, HTML, find_facet_iri
 from octadocs.octiron import Octiron
 from rdflib import URIRef
 from rdflib.term import Node, Literal
@@ -39,34 +39,17 @@ def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
     }
 
 
-def find_facet_for(octiron: Octiron, node: Node) -> Optional[URIRef]:
-    """
-    Find the facet for the node in question.
-
-    :param octiron: Octiron instance representing the graph.
-    :param node: most commonly a URIRef.
-    :return: IRI of the facet, if found.
-    """
-    choices = octiron.query(
-        '''
-        SELECT ?facet WHERE {
-            ?node iolanta:app ?facet .
-        }
-        ''',
-        node=node,
-    )
-
-    facets = map(operator.itemgetter('facet'), choices)
-    return first(facets, None)
-
-
 def render(octiron: Octiron, node: Node) -> str:
     """
     Given an IRI, render it on a MkDocs page.
 
     For that, find an appropriate facet and execute it.
     """
-    facet_iri = find_facet_for(octiron=octiron, node=node)
+    facet_iri = find_facet_iri(
+        octiron=octiron,
+        environment=HTML,
+        node=node,
+    )
 
     if facet_iri is None:
         # Fall back to the default facet.

@@ -24,7 +24,7 @@ def build_table_row(status) -> tr:
         defined_by = defined_by_label
 
     else:
-        defined_by = code(status.get('defined_by_iri'))
+        defined_by = code(status['defined_by_iri'])
 
     return tr(
         td(code(raw)),

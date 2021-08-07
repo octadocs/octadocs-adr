@@ -87,6 +87,8 @@ $included:
         $id: iolanta:app
       owl:hasValue:
         $id: python://octadocs_adr.facets.status
+        iolanta:supports:
+          $id: iolanta:html
 
   - $id: schema:name
     rdfs:subPropertyOf:
