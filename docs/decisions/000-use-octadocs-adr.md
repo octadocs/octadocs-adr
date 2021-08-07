@@ -3,7 +3,7 @@ title: Use octadocs-adr
 number: 0
 author: anatoly
 date: 2021-08-01
-status: decisions:accepted
+status: accepted
 ---
 
 ## Context

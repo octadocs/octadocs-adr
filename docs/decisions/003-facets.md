@@ -3,7 +3,7 @@ title: Use the word "facet" the piece of code that builds a representation of a 
 number: 3
 author: anatoly
 date: 2021-08-07
-status: decisions:accepted
+status: accepted
 ---
 
 ## Context

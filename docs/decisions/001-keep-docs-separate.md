@@ -3,7 +3,7 @@ title: Keep octadocs-decisions docs separate from other octadocs related project
 number: 1
 author: anatoly
 date: 2021-08-01
-status: decisions:accepted
+status: accepted
 ---
 
 ## Context

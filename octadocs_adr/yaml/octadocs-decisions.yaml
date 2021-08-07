@@ -37,17 +37,17 @@ $included:
     rdfs:domain:
       $id: decisions:DecisionPage
 
-  - $id: decisions:accepted
+  - $id: accepted
     $type: decisions:Status
     label: Accepted
     symbol: ✔️
 
-  - $id: decisions:rejected
+  - $id: rejected
     $type: decisions:Status
     label: Rejected
     symbol: ❌
 
-  - $id: decisions:created
+  - $id: created
     $type: decisions:Status
     label: Created
     symbol: 💡

@@ -3,7 +3,7 @@ title: Rename to octadocs-adr
 number: 5
 author: anatoly
 date: 2021-08-07
-status: decisions:accepted
+status: accepted
 ---
 
 ## Context

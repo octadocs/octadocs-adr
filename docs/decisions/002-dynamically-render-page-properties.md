@@ -3,7 +3,7 @@ title: Dynamically render page properties
 number: 2
 author: anatoly
 date: 2021-08-06
-status: decisions:accepted
+status: accepted
 ---
 
 ## Context
