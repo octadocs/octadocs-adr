@@ -1,8 +1,8 @@
-# Do not rename this to context.yaml. Breaks loading of octadocs-decisions.yaml
+# Do not rename this to context.yaml. Breaks loading of octadocs-adr.yaml
 $context:
   xsd: https://www.w3.org/2001/XMLSchema#
   adr: https://adr.octadocs.io/
-  octa: https://ns.octadocs.io/
+  octa: https://octadocs.io/
 
   symbol: octa:symbol
 

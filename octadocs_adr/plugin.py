@@ -49,7 +49,7 @@ class ADRPlugin(BasePlugin):
 
         # Load the triples
         self.octiron.update_from_file(
-            path=Path(__file__).parent / 'yaml/octadocs-decisions.yaml',
+            path=Path(__file__).parent / 'yaml/octadocs-adr.yaml',
             local_iri=URIRef(ADR),
             global_url='/octadocs-adr.yaml',
             named_contexts=config['extra']['named_contexts'],

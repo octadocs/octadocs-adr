@@ -2,7 +2,7 @@ $context:
   xsd: https://www.w3.org/2001/XMLSchema#
   adr: https://adr.octadocs.io/
   rdfs: http://www.w3.org/2000/01/rdf-schema#
-  octa: https://ns.octadocs.io/
+  octa: https://octadocs.io/
   owl: http://www.w3.org/2002/07/owl#
   iolanta: https://iolanta.tech/
 
@@ -18,18 +18,19 @@ $included:
       $id: "adr:"
 
   - $id: adr:adr
-    $type: octa:App
+    $type: octa:PageFacet
     label: Architecture Decision Record.
     octa:template: "octadocs-decisions/adr.html"
 
   - $id: adr:adr-list
-    $type: octa:App
+    $type: octa:PageFacet
     label: List of Architecture Decision Records.
     octa:template: "octadocs-decisions/adr-list.html"
 
   - $id: adr:DecisionPage
     owl:equivalentClass:
       - $type: owl:Restriction
+        label: Draw nice links to ADR documents.
         owl:onProperty:
           $id: iolanta:app
         owl:hasValue:
@@ -37,15 +38,20 @@ $included:
           iolanta:supports:
             - $id: octa:link
       - $type: owl:Restriction
+        label: Display ADR documents as MkDocs pages.
         owl:onProperty:
           $id: iolanta:app
         owl:hasValue:
           $id: adr:adr
+          iolanta:supports:
+            $id: "octa:"
 
   - $id: adr:number
     rdfs:subPropertyOf:
+      # Thus, Octadocs will sort by ADR number in navigation.
       $id: octa:position
     rdfs:domain:
+      # Allows to automatically consider a page to mean an ADR when it has a `number` defined.
       $id: adr:DecisionPage
 
   - $id: accepted
