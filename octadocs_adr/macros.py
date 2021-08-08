@@ -28,13 +28,13 @@ def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
     pairs = octiron.query(
         '''
         SELECT ?property ?app WHERE {
-            ?property iolanta:app ?app .
+            ?property iolanta:facet ?facet .
             ?app iolanta:supports <https://adr.octadocs.io/sidebar> .
         }
         '''
     )
     return {
-        row['property']: row['app']
+        row['property']: row['facet']
         for row in pairs
     }
 

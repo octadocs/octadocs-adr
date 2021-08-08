@@ -9,7 +9,7 @@ $context:
   # Shorthands
   label: rdfs:label
   symbol: octa:symbol
-  facet: iolanta:app
+  facet: iolanta:facet
   position: octa:position
 
 $included:
@@ -32,7 +32,7 @@ $included:
       - $type: owl:Restriction
         label: Draw nice links to ADR documents.
         owl:onProperty:
-          $id: iolanta:app
+          $id: iolanta:facet
         owl:hasValue:
           $id: python://octadocs_adr.facets.link.link_to_adr
           iolanta:supports:
@@ -40,7 +40,7 @@ $included:
       - $type: owl:Restriction
         label: Display ADR documents as MkDocs pages.
         owl:onProperty:
-          $id: iolanta:app
+          $id: iolanta:facet
         owl:hasValue:
           $id: adr:adr
           iolanta:supports:
@@ -90,14 +90,14 @@ $included:
     position: -50
 
   - $id: adr:Status
-    iolanta:app:
+    iolanta:facet:
       $id: python://octadocs_adr.facets.status_class
       iolanta:supports:
         $id: iolanta:html
     owl:equivalentClass:
       $type: owl:Restriction
       owl:onProperty:
-        $id: iolanta:app
+        $id: iolanta:facet
       owl:hasValue:
         $id: python://octadocs_adr.facets.status
         iolanta:supports:
