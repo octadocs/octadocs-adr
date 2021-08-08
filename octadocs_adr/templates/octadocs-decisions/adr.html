@@ -45,7 +45,7 @@
             </label>
 
             <ul class="md-nav__list" data-md-scrollfix>
-              {{ decision.render_page_properties }}
+              {{ render(page.iri, environment=adr.sidebar) }}
             </ul>
           </nav>
         </div>

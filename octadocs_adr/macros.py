@@ -1,22 +1,17 @@
 import itertools
-import json
+import logging
 import operator
-import pydoc
 from dataclasses import dataclass
 from functools import cached_property
-from typing import Dict, List, Optional, Callable
+from typing import Dict, List, Optional
 
-from documented import DocumentedError
 from dominate import tags
 from mkdocs.structure.pages import Page
 from more_itertools import first
-from octadocs.iolanta import resolve_facet, HTML, find_facet_iri
+from octadocs.iolanta import resolve_facet, HTML, find_facet_iri, render
 from octadocs.octiron import Octiron
 from rdflib import URIRef
 from rdflib.term import Node, Literal
-import logging
-
-from urlpath import URL
 
 from octadocs_adr.facets.default import default
 
@@ -29,7 +24,7 @@ def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
         '''
         SELECT ?property ?app WHERE {
             ?property iolanta:facet ?facet .
-            ?app iolanta:supports <https://adr.octadocs.io/sidebar> .
+            ?app iolanta:supports adr:sidebar .
         }
         '''
     )
@@ -37,26 +32,6 @@ def app_by_property(octiron: Octiron) -> Dict[URIRef, URIRef]:
         row['property']: row['facet']
         for row in pairs
     }
-
-
-def render(octiron: Octiron, node: Node) -> str:
-    """
-    Given an IRI, render it on a MkDocs page.
-
-    For that, find an appropriate facet and execute it.
-    """
-    facet_iri = find_facet_iri(
-        octiron=octiron,
-        environment=HTML,
-        node=node,
-    )
-
-    if facet_iri is None:
-        # Fall back to the default facet.
-        return default(octiron=octiron, node=node)
-
-    facet = resolve_facet(facet_iri)
-    return facet(octiron, node)
 
 
 def default_property_facet(
@@ -91,7 +66,10 @@ def default_property_facet(
     if isinstance(property_value, Literal):
         return f'<strong>{label}</strong>: {property_value}'
 
-    rendered_value = render(octiron=octiron, node=property_value)
+    rendered_value = render(
+        octiron=octiron,
+        node=property_value,
+    )
     return f'<strong>{label}</strong>: {rendered_value}'
 
 

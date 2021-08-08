@@ -67,6 +67,7 @@ class ADRPlugin(BasePlugin):
                 page=page,
                 octiron=self.octiron,
             ),
+            'adr': ADR,
         })
 
         return context

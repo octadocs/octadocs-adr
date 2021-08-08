@@ -28,6 +28,10 @@ $included:
     octa:template: "octadocs-decisions/adr-list.html"
 
   - $id: adr:DecisionPage
+    iolanta:facet:
+      $id: python://octadocs_adr.facets.adr_list
+      iolanta:supports:
+        $id: iolanta:html
     owl:equivalentClass:
       - $type: owl:Restriction
         label: Draw nice links to ADR documents.
@@ -37,6 +41,14 @@ $included:
           $id: python://octadocs_adr.facets.link.link_to_adr
           iolanta:supports:
             - $id: octa:link
+      - $type: owl:Restriction
+        label: Display a properties sidebar for an ADR page.
+        owl:onProperty:
+          $id: iolanta:facet
+        owl:hasValue:
+          $id: python://octadocs_adr.facets.sidebar.page_sidebar
+          iolanta:supports:
+            - $id: adr:sidebar
       - $type: owl:Restriction
         label: Display ADR documents as MkDocs pages.
         owl:onProperty:
@@ -104,5 +116,12 @@ $included:
           $id: iolanta:html
 
   - $id: schema:name
+    # This is only needed before we have schema.org vocabulary imported.
     rdfs:subPropertyOf:
       $id: rdfs:label
+
+  - $id: adr:sidebar
+    label: Environment for the page sidebar, to list properties of current page.
+    $type: iolanta:Environment
+    iolanta:hasDefaultFacet:
+      $id: python://octadocs_adr.facets.sidebar
