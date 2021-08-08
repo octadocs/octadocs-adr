@@ -33,6 +33,13 @@ $included:
         owl:onProperty:
           $id: iolanta:app
         owl:hasValue:
+          $id: python://octadocs_adr.facets.link.link_to_adr
+          iolanta:supports:
+            - $id: octa:link
+      - $type: owl:Restriction
+        owl:onProperty:
+          $id: iolanta:app
+        owl:hasValue:
           $id: adr:adr
 
   - $id: adr:number

@@ -51,4 +51,4 @@ Create a new document in `decisions` directory named, say, `{{ sample_adr }}`:
 {% include "decisions/" + sample_adr %}
 ```
 
-Open [`ADR000` Use octadocs-adr](/decisions/000-use-octadocs-adr/) and see for yourself 😏 
+Open {{ link('local:decisions/000-use-octadocs-adr.md') }} and see for yourself 😏 

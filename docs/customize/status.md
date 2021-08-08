@@ -19,4 +19,4 @@ From now on, you can write:
 status: archived
 ```
 
-on your ADR pages like this: [`ADR004` An Archived ADR](/decisions/004-archived/).
+on your ADR pages like this: {{ link('decisions/004-archived.md') }}.
