@@ -8,7 +8,7 @@ status: archived
 
 ## Context
 
-We want to show how to use a custom status value. See [here](/customize/status/) for details. 
+We want to show how to use a custom status value. See {{ link('local:customize/status.md') }} for details. 
 
 ## Decision
 

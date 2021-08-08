@@ -13,6 +13,10 @@ def link_to_adr(octiron: Octiron, iri: URIRef) -> a:
                 octa:url ?url ;
                 octa:title ?label ;
                 adr:number ?number .
+            
+            OPTIONAL {
+                ?page adr:status / octa:symbol ?symbol .
+            }
         } ORDER BY ?number LIMIT 1
         ''',
         page=iri,
@@ -25,8 +29,12 @@ def link_to_adr(octiron: Octiron, iri: URIRef) -> a:
     number = location['number'].value
     readable_number = f'ADR{number:03}'
 
+    if symbol := location.get('symbol'):
+        readable_number = f'{symbol} {readable_number}'
+
     return a(
         code(readable_number),
+        ' ',
         location['label'],
         href=location['url'],
     )
