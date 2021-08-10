@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "octadocs-adr"
-version = "0.1.0"
+version = "0.1.1"
 description = "A blueprint for Architecture Decision Record in Octadocs - the smart documentation environment."
 authors = ["Anatoly Scherbakov <talk@yeti.sh>"]
 
