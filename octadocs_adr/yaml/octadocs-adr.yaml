@@ -41,6 +41,7 @@ $included:
           $id: python://octadocs_adr.facets.link.link_to_adr
           iolanta:supports:
             - $id: octa:link
+            - $id: adr:sidebar-property-value
       - $type: owl:Restriction
         label: Display a properties sidebar for an ADR page.
         owl:onProperty:
