@@ -4,7 +4,7 @@ number: 8
 author: anatoly
 date: 2021-08-13
 status: accepted
-see-also: decisions/006-customize-literal-property-value-display.md
+see-also: decisions/customize-literal-property-value-display.md
 ---
 
 ## Context

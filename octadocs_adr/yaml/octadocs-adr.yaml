@@ -12,6 +12,11 @@ $context:
   facet: iolanta:facet
   position: octa:position
 
+  ∩:
+    $id: owl:intersectionOf
+    $container: $list
+    $type: $id
+
 $included:
   - $id: "adr:"
     octa:url:
@@ -58,6 +63,35 @@ $included:
           $id: adr:adr
           iolanta:supports:
             $id: "octa:"
+
+  - $id: adr:Directory
+    label: Directory with ADR pages.
+    owl:equivalentClass:
+      $type: owl:Restriction
+      owl:onProperty:
+        $id: octa:isParentOf
+      owl:someValuesFrom:
+        $id: adr:DecisionPage
+
+  - $id: adr:Index
+    label: Index of an ADR directory.
+    owl:equivalentClass:
+      - ∩:
+          - $id: octa:IndexPage
+          - $type: owl:Restriction
+            owl:onProperty:
+              $id: octa:isChildOf
+            owl:someValuesFrom:
+              $id: adr:Directory
+      - $type: owl:Restriction
+        owl:onProperty:
+          $id: octa:title
+        owl:hasValue: "Decisions"
+      - $type: owl:Restriction
+        owl:onProperty:
+          $id: iolanta:facet
+        owl:hasValue:
+          $id: adr:adr-list
 
   - $id: adr:number
     rdfs:subPropertyOf:

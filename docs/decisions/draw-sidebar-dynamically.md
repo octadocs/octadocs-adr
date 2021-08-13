@@ -1,6 +1,6 @@
 ---
 title: Draw sidebar dynamically
-number: 7
+number: 6
 author: anatoly
 date: 2021-08-13
 status: accepted
