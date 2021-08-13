@@ -162,7 +162,7 @@ class DecisionContext:
             SELECT ?property ?value WHERE {
                 ?page ?property ?value .
                 
-                ?property a adr:PageProperty .
+                ?property a adr:ADRProperty .
 
                 OPTIONAL {
                     ?property octa:position ?explicit_position .

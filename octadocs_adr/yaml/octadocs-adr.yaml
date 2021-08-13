@@ -81,21 +81,21 @@ $included:
     label: Created
     symbol: 💡
 
-  - $id: adr:PageProperty
+  - $id: adr:ADRProperty
     label: Class of properties that will be displayed in an ADR page sidebar.
 
   - $id: adr:author
-    $type: adr:PageProperty
+    $type: adr:ADRProperty
     label: Author
     position: -40
 
   - $id: adr:date
-    $type: adr:PageProperty
+    $type: adr:ADRProperty
     label: Date
     position: -30
 
   - $id: adr:status
-    $type: adr:PageProperty
+    $type: adr:ADRProperty
     rdfs:range:
       $id: adr:Status
     label: Status
@@ -120,8 +120,20 @@ $included:
     rdfs:subPropertyOf:
       $id: rdfs:label
 
+  # Now go the environments
   - $id: adr:sidebar
     label: Environment for the page sidebar, to list properties of current page.
     $type: iolanta:Environment
     iolanta:hasDefaultFacet:
       $id: python://octadocs_adr.facets.sidebar
+
+  - $id: adr:sidebar-property
+    label: Environment for property names in ADR page sidebar
+    $type: iolanta:Environment
+    iolanta:hasDefaultFacet:
+      $id: python://octadocs_adr.facets.sidebar_property
+
+  - $id: adr:sidebar-property-value
+    label: Environment for property values in ADR page sidebar
+    iolanta:hasDefaultFacet:
+      $id: python://octadocs.facets.default

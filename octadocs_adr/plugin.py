@@ -8,8 +8,7 @@ from octadocs.plugin import cached_octiron
 from rdflib import Namespace, URIRef
 
 from octadocs_adr.macros import DecisionContext
-
-ADR = Namespace('https://adr.octadocs.io/')
+from octadocs_adr.models import ADR
 
 
 class ADRPlugin(BasePlugin):
