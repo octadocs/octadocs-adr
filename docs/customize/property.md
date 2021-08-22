@@ -1,6 +1,9 @@
 ---
 title: Add a custom property
+position: 2
 ---
+
+{% from "macros.html" import code_file %}
 
 ## Problem
 
@@ -14,16 +17,6 @@ As an illustration, let us add a custom property named `see-also` which may link
 ## Describe the property
 
 Create a new YAML file with the following content.
-
-{% macro wrapped_include(path) %}{% include path %}{% endmacro %}
-
-{% macro code_file(path, language, highlight_lines='') %}
-!!! note "{{ path }}"
-    ```{{ language }} {% if highlight_lines %}hl_lines="{{ highlight_lines }}"{% endif %}
-    {{ wrapped_include(path=path)|indent }}
-    ```
-{% endmacro %}
-
 
 {{ code_file(path='decisions/meta/see-also.yaml', language='yaml') }}
 

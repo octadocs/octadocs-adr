@@ -1,0 +1,8 @@
+{% macro wrapped_include(path) %}{% include path %}{% endmacro %}
+
+{% macro code_file(path, language, highlight_lines='') %}
+!!! note "{{ path }}"
+    ```{{ language }} {% if highlight_lines %}hl_lines="{{ highlight_lines }}"{% endif %}
+    {{ wrapped_include(path=path)|indent }}
+    ```
+{% endmacro %}
